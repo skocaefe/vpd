@@ -70,7 +70,7 @@ if st.button("Hesapla"):
     st.table(vpd_ranges)
     
     def evaluate_vpd_for_tomato(vpd):
-    if 0.8 <= vpd <= 1.2:
+if 0.8 <= vpd <= 1.2:
         return "İdeal", "Domates için ideal koşullar. Mevcut durumu koruyun."
     elif vpd < 0.8:
         return "Düşük", "Yüksek nem çiçek çürüklüğüne yol açabilir. Havalandırmayı artırın."
@@ -78,7 +78,7 @@ if st.button("Hesapla"):
         return "Yüksek", "Aşırı buharlaşma var. Sisleme sistemini devreye alın."
 
 def evaluate_vpd_for_cucumber(vpd):
-    if 0.7 <= vpd <= 1.1:
+if 0.7 <= vpd <= 1.1:
         return "İdeal", "Salatalık için ideal. Dengeyi koruyun."
     elif vpd < 0.7:
         return "Düşük", "Yaprak yüzeyinde su birikebilir. Dehumidifier kullanın."
