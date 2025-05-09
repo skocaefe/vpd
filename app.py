@@ -68,6 +68,7 @@ if st.button("Hesapla"):
         "Öneri": ["Havalandırma/ısıtma", "Havalandırma, kalsiyum", "Koşulları koru", "Nemlendirme", "Nemlendirme/soğutma"]
     }
     st.table(vpd_ranges)
+    
     def evaluate_vpd_for_tomato(vpd):
     if 0.8 <= vpd <= 1.2:
         return "İdeal", "Domates için ideal koşullar. Mevcut durumu koruyun."
