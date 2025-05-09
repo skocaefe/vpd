@@ -29,11 +29,17 @@ def evaluate_vpd_for_lettuce(vpd):
     return evaluation, suggestion
 
 # Streamlit Arayüzü
-st.title("VPD Hesaplama ve Marul için Öneriler")
+st.markdown("<h1 style='text-align: center; color: green;'>🌿 VPD Hesaplayıcı</h1>", unsafe_allow_html=True)
 st.write("Bitki seçin, nem ve sıcaklık değerlerini girin, VPD ile birlikte değerlendirme ve çözüm önerilerini görün.")
 
 # Bitki seçimi (şimdilik sadece marul)
-plant = st.selectbox("Bitki Seçin", ["Marul"])
+plant = st.selectbox("Bitki Seçin", ["Marul", "Domates", "Salatalık"])
+if plant == "Marul":
+    evaluation, suggestion = evaluate_vpd_for_lettuce(vpd)
+elif plant == "Domates":
+    evaluation, suggestion = evaluate_vpd_for_tomato(vpd)
+elif plant == "Salatalık":
+    evaluation, suggestion = evaluate_vpd_for_cucumber(vpd)
 
 # Nem ve sıcaklık girişleri
 rh = st.number_input("Bağıl Nem (%RH)", min_value=10.0, max_value=100.0, value=60.0, step=1.0)
@@ -62,6 +68,22 @@ if st.button("Hesapla"):
         "Öneri": ["Havalandırma/ısıtma", "Havalandırma, kalsiyum", "Koşulları koru", "Nemlendirme", "Nemlendirme/soğutma"]
     }
     st.table(vpd_ranges)
+    def evaluate_vpd_for_tomato(vpd):
+    if 0.8 <= vpd <= 1.2:
+        return "İdeal", "Domates için ideal koşullar. Mevcut durumu koruyun."
+    elif vpd < 0.8:
+        return "Düşük", "Yüksek nem çiçek çürüklüğüne yol açabilir. Havalandırmayı artırın."
+    else:
+        return "Yüksek", "Aşırı buharlaşma var. Sisleme sistemini devreye alın."
+
+def evaluate_vpd_for_cucumber(vpd):
+    if 0.7 <= vpd <= 1.1:
+        return "İdeal", "Salatalık için ideal. Dengeyi koruyun."
+    elif vpd < 0.7:
+        return "Düşük", "Yaprak yüzeyinde su birikebilir. Dehumidifier kullanın."
+    else:
+        return "Yüksek", "Kuruma riski var. Gölgeleme yaparak sıcaklığı düşürün."
+
 
 # Not
 st.write("**Not:** VPD hesaplamaları, Tetens formülüne dayalı yaklaşık değerlerdir. Yaprak sıcaklığı (genellikle hava sıcaklığından 1-2°C düşük) daha doğru sonuçlar verebilir.")
