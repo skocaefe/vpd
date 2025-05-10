@@ -42,8 +42,17 @@ def evaluate_vpd_for_cucumber(vpd):
     else:
         return "Yüksek", "Yapraklar hızlı kuruyabilir. Gölgeleme yapın, nemi artırın."
 
+# Çilek için değerlendirme
+def evaluate_vpd_for_strawberry(vpd):
+    if 0.6 <= vpd <= 0.9:
+        return "İdeal", "Çilek için ideal VPD. Mevcut sıcaklık ve nem dengesini koruyun."
+    elif vpd < 0.6:
+        return "Düşük", "Nem fazla, gri küf gibi mantar hastalıkları riski artar. Havalandırmayı artırın, nemi düşürün."
+    else:
+        return "Yüksek", "VPD yüksek, meyve kalitesi ve büyümesi düşebilir. Sisleme ve gölgeleme önerilir."
+
 # Bitki seçimi
-plant = st.selectbox("Bitki Seçin", ["Marul", "Domates", "Salatalık"])
+plant = st.selectbox("Bitki Seçin", ["Marul", "Domates", "Salatalık", "Çilek"])
 
 # Nem ve sıcaklık girişi
 rh = st.number_input("Bağıl Nem (%RH)", min_value=10.0, max_value=100.0, value=60.0, step=1.0)
@@ -58,8 +67,10 @@ if st.button("Hesapla"):
         evaluation, suggestion = evaluate_vpd_for_lettuce(vpd)
     elif plant == "Domates":
         evaluation, suggestion = evaluate_vpd_for_tomato(vpd)
-    else:
+    elif plant == "Salatalık":
         evaluation, suggestion = evaluate_vpd_for_cucumber(vpd)
+    elif plant == "Çilek":
+        evaluation, suggestion = evaluate_vpd_for_strawberry(vpd)
 
     # Sonuçlar
     st.success(f"**Hesaplanan VPD:** {vpd} kPa")
