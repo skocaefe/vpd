@@ -11,56 +11,58 @@ def calculate_vpd(temp, rh):
     vpd = svp * (1 - rh / 100)
     return round(vpd, 2)
 
-# Değerlendirme fonksiyonları (neden-sonuç açıklamalarıyla)
-
+# Marul
 def evaluate_vpd_for_lettuce(vpd):
     if 0.6 <= vpd <= 1.0:
-        return "İdeal (Yeşil Bölge)", "VPD değeri ideal seviyede. Bu koşullar, marulda sağlıklı gelişim ve kalsiyum alımını destekler."
+        return "İdeal (Yeşil Bölge)", "VPD değeri ideal. Kalsiyum alımı dengeli olur ve yapraklarda tipburn (uç yanığı) riski azalır. Koşulları koruyun."
     elif 0.4 <= vpd < 0.6:
-        return "Alt Sınır (Dikkatli İzleyin)", "VPD biraz düşük. Bu durum, marul yapraklarında uç yanığı (tipburn) riskini artırır. Havalandırmayı artırarak nemi düşürün ve kalsiyum nitrat (100-150 ppm) takviyesi yapın."
+        return "Alt Sınır", "VPD düşük → ortam fazla nemli. Bu durum kalsiyum taşınımını engeller ve tipburn riskini artırır. Havalandırmayı artırarak nemi hafif düşürün, sıcaklığı artırabilirsiniz. Kalsiyum nitrat (100-150 ppm) desteği önerilir."
     elif 1.0 < vpd <= 1.2:
-        return "Üst Sınır (Kabul Edilebilir)", "VPD hafif yüksek. Bitkiler biraz stres hissedebilir. Su kaybını azaltmak için nemlendirme (sisleme) uygulayın ve hava sirkülasyonunu kontrol edin."
+        return "Üst Sınır", "VPD hafif yüksek. Bitkiler biraz stres hissedebilir. Su kaybını azaltmak için nemlendirme (sisleme) uygulayın ve hava sirkülasyonunu kontrol edin."
     elif vpd < 0.4:
-        return "Çok Düşük", "VPD çok düşük. Transpirasyon azalır, bu da bitki yüzeyinde mantar oluşumuna zemin hazırlar. Havalandırmayı artırarak nem seviyesini düşürmelisiniz."
+        return "Çok Düşük", "VPD çok düşük → aşırı nemli ortam. Bu mantar hastalıkları riskini artırır. Havalandırmayı artırarak nem seviyesini düşürün, sıcaklığı 1-2°C yükseltebilirsiniz."
     else:
-        return "Çok Yüksek", "VPD çok yüksek. Bu durum, bitkide su stresine ve gelişim geriliğine yol açar. Seraya nemlendirici ekleyerek nemi artırın, sıcaklığı da 1-2°C düşürün."
+        return "Çok Yüksek", "VPD çok yüksek → yapraklarda aşırı su kaybı olur. Solgunluk ve verim kaybı yaşanabilir. Ortam nemini artırın, sıcaklığı düşürün."
 
+# Domates
 def evaluate_vpd_for_tomato(vpd):
     if 0.8 <= vpd <= 1.2:
-        return "İdeal", "VPD değeri domates için ideal. Bu seviyeler bitki büyümesini dengeler ve verimi artırır."
+        return "İdeal", "VPD değeri dengeli. Bu aralıkta domates optimum su kaybı sağlar ve çiçek dökülmesi azalır. Koşulları koruyun."
     elif vpd < 0.8:
-        return "Düşük", "Düşük VPD, çiçek çürüklüğü ve mantar riskini artırır. Hava sirkülasyonunu artırarak nemi azaltın."
+        return "Düşük", "VPD düşük → fazla nemli ortam. Bu durum mantar riskini artırır ve çiçek dökülmesine neden olabilir. Havalandırma artırılmalı, sıcaklık hafifçe artırılabilir."
     else:
-        return "Yüksek", "Yüksek VPD, aşırı su kaybına yol açar. Bu da çiçek dökümüne neden olabilir. Sisleme sistemi ile nemi artırın veya gölgeleme yaparak sıcaklığı azaltın."
+        return "Yüksek", "VPD yüksek → düşük nem veya yüksek sıcaklık. Bu, domateste çiçek dökümüne ve gelişim yavaşlamasına yol açar. Sisleme ile nem artırın, gerekirse gölgelendirme ile sıcaklığı düşürün."
 
+# Salatalık
 def evaluate_vpd_for_cucumber(vpd):
     if 0.7 <= vpd <= 1.1:
-        return "İdeal", "VPD değeri salatalık için ideal. Transpirasyon dengede, gelişim sağlıklı olur."
+        return "İdeal", "VPD dengeli. Salatalıkta meyve kalitesi ve su dengesi korunur. Koşulları sürdürün."
     elif vpd < 0.7:
-        return "Düşük", "VPD düşükse yapraklarda su birikir, bu da mantar oluşumunu kolaylaştırır. Nem seviyesini düşürmek için havalandırmayı artırın."
+        return "Düşük", "VPD düşük → ortamda yüksek nem var. Bu durum yaprak yüzeyinde su birikimine ve mantar riskine yol açar. Havalandırmayı artırarak nemi azaltın."
     else:
-        return "Yüksek", "Yüksek VPD yaprakların kurumasına neden olur. Sisleme sistemi ile nem sağlayın, gölgeleme ile sıcaklığı azaltın."
+        return "Yüksek", "VPD yüksek → ortamda nem yetersiz. Yapraklar hızla su kaybedebilir. Nemlendirici sistemle nemi artırın, sıcaklığı azaltmak için gölgeleme yapılabilir."
 
+# Çilek
 def evaluate_vpd_for_strawberry(vpd):
     if 0.7 <= vpd <= 1.1:
-        return "İdeal", "VPD değeri çilek için uygundur. Bu ortamda meyve kalitesi artar ve yaprak sağlığı korunur."
+        return "İdeal", "VPD çilek için uygun. Bu değer meyve gelişimi ve yaprak sağlığı açısından dengelidir. Koşulları sürdürün."
     elif vpd < 0.7:
-        return "Düşük", "Düşük VPD, hastalık riskini artırır ve meyvede çatlama olabilir. Nem seviyesini düşürmek için havalandırmayı ve sıcaklığı hafif artırabilirsiniz."
+        return "Düşük", "VPD düşük → yüksek nem ve düşük sıcaklık olabilir. Bu, meyvede çatlama ve mantar riskine yol açar. Havalandırmayı artırın ve sıcaklığı hafif yükseltin."
     else:
-        return "Yüksek", "Yüksek VPD, çileklerde solgunluk ve küçük meyve oluşumuna neden olur. Sıcaklığı düşürerek veya nemlendirici kullanarak bu durumu dengeleyin."
+        return "Yüksek", "VPD yüksek → düşük nem veya yüksek sıcaklık. Bu, solgunluk ve küçük meyve oluşumuna neden olabilir. Ortam nemini artırın (sisleme), sıcaklığı 1-2°C düşürün."
 
 # Bitki seçimi
 plant = st.selectbox("Bitki Seçin", ["Marul", "Domates", "Salatalık", "Çilek"])
 
-# Girişler
+# Giriş alanları
 rh = st.number_input("Bağıl Nem (%RH)", min_value=10.0, max_value=100.0, value=60.0, step=1.0)
 temp = st.number_input("Sıcaklık (°C)", min_value=0.0, max_value=50.0, value=20.0, step=1.0)
 
-# Hesapla
+# Hesaplama
 if st.button("Hesapla"):
     vpd = calculate_vpd(temp, rh)
 
-    # Değerlendirme
+    # Bitkiye göre yorum
     if plant == "Marul":
         evaluation, suggestion = evaluate_vpd_for_lettuce(vpd)
     elif plant == "Domates":
@@ -76,4 +78,4 @@ if st.button("Hesapla"):
 
 # Not
 st.markdown("---")
-st.write("🔎 **Not:** VPD hesaplamaları, Tetens formülüne dayalıdır. Yaprak sıcaklığı verisiyle daha hassas ölçümler yapılabilir.")
+st.write("🔎 **Not:** VPD hesaplamaları Tetens formülüne dayalıdır. Daha hassas sonuçlar için yaprak sıcaklığı bilgisiyle birlikte hesaplama yapılması önerilir.")
