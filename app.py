@@ -11,58 +11,56 @@ def calculate_vpd(temp, rh):
     vpd = svp * (1 - rh / 100)
     return round(vpd, 2)
 
-# Marul için değerlendirme
+# Değerlendirme fonksiyonları (neden-sonuç açıklamalarıyla)
+
 def evaluate_vpd_for_lettuce(vpd):
     if 0.6 <= vpd <= 1.0:
-        return "İdeal (Yeşil Bölge)", "Mevcut koşullar marul için ideal. Nem ve sıcaklığı koruyun."
+        return "İdeal (Yeşil Bölge)", "VPD değeri ideal seviyede. Bu koşullar, marulda sağlıklı gelişim ve kalsiyum alımını destekler."
     elif 0.4 <= vpd < 0.6:
-        return "Alt Sınır (Dikkatli İzleyin)", "VPD biraz düşük. Tipburn riski olabilir. Havalandırmayı artırın, nemi hafifçe düşürün. Kalsiyum nitrat (100-150 ppm) ekleyin."
+        return "Alt Sınır (Dikkatli İzleyin)", "VPD biraz düşük. Bu durum, marul yapraklarında uç yanığı (tipburn) riskini artırır. Havalandırmayı artırarak nemi düşürün ve kalsiyum nitrat (100-150 ppm) takviyesi yapın."
     elif 1.0 < vpd <= 1.2:
-        return "Üst Sınır (Kabul Edilebilir)", "VPD biraz yüksek. Sisleme yaparak nemi artırın, hava sirkülasyonunu kontrol edin."
+        return "Üst Sınır (Kabul Edilebilir)", "VPD hafif yüksek. Bitkiler biraz stres hissedebilir. Su kaybını azaltmak için nemlendirme (sisleme) uygulayın ve hava sirkülasyonunu kontrol edin."
     elif vpd < 0.4:
-        return "Çok Düşük", "Transpirasyon yetersiz, mantar hastalıkları riski yüksek. Nem düşürmek için havalandırma veya nem alıcı kullanın."
+        return "Çok Düşük", "VPD çok düşük. Transpirasyon azalır, bu da bitki yüzeyinde mantar oluşumuna zemin hazırlar. Havalandırmayı artırarak nem seviyesini düşürmelisiniz."
     else:
-        return "Çok Yüksek", "Su stresi var. Nemlendirici kullanın (%50-70 hedefleyin), sıcaklığı düşürün."
+        return "Çok Yüksek", "VPD çok yüksek. Bu durum, bitkide su stresine ve gelişim geriliğine yol açar. Seraya nemlendirici ekleyerek nemi artırın, sıcaklığı da 1-2°C düşürün."
 
-# Domates için değerlendirme
 def evaluate_vpd_for_tomato(vpd):
     if 0.8 <= vpd <= 1.2:
-        return "İdeal", "Domates için ideal koşullar. Mevcut durumu koruyun."
+        return "İdeal", "VPD değeri domates için ideal. Bu seviyeler bitki büyümesini dengeler ve verimi artırır."
     elif vpd < 0.8:
-        return "Düşük", "Yüksek nem, mantar ve çiçek çürüklüğüne yol açabilir. Havalandırmayı artırın."
+        return "Düşük", "Düşük VPD, çiçek çürüklüğü ve mantar riskini artırır. Hava sirkülasyonunu artırarak nemi azaltın."
     else:
-        return "Yüksek", "Aşırı buharlaşma olabilir. Sisleme sistemini devreye alın, gölgeleme yaparak sıcaklığı azaltın."
+        return "Yüksek", "Yüksek VPD, aşırı su kaybına yol açar. Bu da çiçek dökümüne neden olabilir. Sisleme sistemi ile nemi artırın veya gölgeleme yaparak sıcaklığı azaltın."
 
-# Salatalık için değerlendirme
 def evaluate_vpd_for_cucumber(vpd):
     if 0.7 <= vpd <= 1.1:
-        return "İdeal", "Salatalık için uygun. Koşulları koruyun."
+        return "İdeal", "VPD değeri salatalık için ideal. Transpirasyon dengede, gelişim sağlıklı olur."
     elif vpd < 0.7:
-        return "Düşük", "Fazla nem yapraklarda su birikmesine neden olabilir. Dehumidifier (nem alıcı) kullanın."
+        return "Düşük", "VPD düşükse yapraklarda su birikir, bu da mantar oluşumunu kolaylaştırır. Nem seviyesini düşürmek için havalandırmayı artırın."
     else:
-        return "Yüksek", "Yapraklar hızlı kuruyabilir. Gölgeleme yapın, nemi artırın."
+        return "Yüksek", "Yüksek VPD yaprakların kurumasına neden olur. Sisleme sistemi ile nem sağlayın, gölgeleme ile sıcaklığı azaltın."
 
-# Çilek için değerlendirme
 def evaluate_vpd_for_strawberry(vpd):
-    if 0.6 <= vpd <= 0.9:
-        return "İdeal", "Çilek için ideal VPD. Mevcut sıcaklık ve nem dengesini koruyun."
-    elif vpd < 0.6:
-        return "Düşük", "Nem fazla, gri küf gibi mantar hastalıkları riski artar. Havalandırmayı artırın, nemi düşürün."
+    if 0.7 <= vpd <= 1.1:
+        return "İdeal", "VPD değeri çilek için uygundur. Bu ortamda meyve kalitesi artar ve yaprak sağlığı korunur."
+    elif vpd < 0.7:
+        return "Düşük", "Düşük VPD, hastalık riskini artırır ve meyvede çatlama olabilir. Nem seviyesini düşürmek için havalandırmayı ve sıcaklığı hafif artırabilirsiniz."
     else:
-        return "Yüksek", "VPD yüksek, meyve kalitesi ve büyümesi düşebilir. Sisleme ve gölgeleme önerilir."
+        return "Yüksek", "Yüksek VPD, çileklerde solgunluk ve küçük meyve oluşumuna neden olur. Sıcaklığı düşürerek veya nemlendirici kullanarak bu durumu dengeleyin."
 
 # Bitki seçimi
 plant = st.selectbox("Bitki Seçin", ["Marul", "Domates", "Salatalık", "Çilek"])
 
-# Nem ve sıcaklık girişi
+# Girişler
 rh = st.number_input("Bağıl Nem (%RH)", min_value=10.0, max_value=100.0, value=60.0, step=1.0)
 temp = st.number_input("Sıcaklık (°C)", min_value=0.0, max_value=50.0, value=20.0, step=1.0)
 
-# Hesaplama
+# Hesapla
 if st.button("Hesapla"):
     vpd = calculate_vpd(temp, rh)
 
-    # Bitkiye göre değerlendirme seç
+    # Değerlendirme
     if plant == "Marul":
         evaluation, suggestion = evaluate_vpd_for_lettuce(vpd)
     elif plant == "Domates":
@@ -72,13 +70,10 @@ if st.button("Hesapla"):
     elif plant == "Çilek":
         evaluation, suggestion = evaluate_vpd_for_strawberry(vpd)
 
-    # Sonuçlar
     st.success(f"**Hesaplanan VPD:** {vpd} kPa")
     st.info(f"**Değerlendirme:** {evaluation}")
-
-    with st.expander("💡 Çözüm Önerisi"):
-        st.write(suggestion)
+    st.write(f"📌 **Çözüm Önerisi:** {suggestion}")
 
 # Not
 st.markdown("---")
-st.write("🔎 **Not:** VPD hesaplaması Tetens formülüne dayalıdır. Daha hassas hesaplamalar için yaprak sıcaklığı dikkate alınmalıdır.")
+st.write("🔎 **Not:** VPD hesaplamaları, Tetens formülüne dayalıdır. Yaprak sıcaklığı verisiyle daha hassas ölçümler yapılabilir.")
